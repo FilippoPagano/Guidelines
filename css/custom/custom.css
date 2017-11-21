@@ -1,0 +1,26 @@
+/*================================================================================
+	Item Name: Materialize - Material Design Admin Template
+	Version: 4.0
+	Author: PIXINVENT
+	Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================
+
+NOTE:
+------
+PLACE HERE YOUR OWN CSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
+WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+
+.fullWidth{
+position: relative;
+width: 100%;
+}
+.jsgrid, .jsgrid *, .jsgrid * *, .jsgrid * * *, .jsgrid * * * * {
+    overflow: visible !important;
+}
+.text-bottom {
+    vertical-align: text-bottom;
+}
+.inline-block {
+	
+	display:inline-block;
+}
