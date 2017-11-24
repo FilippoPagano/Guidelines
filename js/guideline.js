@@ -1,15 +1,36 @@
 $(document).ready(function () {
+	$(".material-icons:contains('mode_edit')").click(function(){
+		window.open("edit-guideline.html?id="+ findGetParameter("id"));
+		});
+	$.ajaxSetup({
+        type: "POST",
+        data: {},
+        dataType: 'json',
+        xhrFields: {
+            withCredentials: true
+        },
+        crossDomain: true
+    });
+	$(".material-icons:contains('comment')").click(function(){
+		//	$('#exampleInputEmail1')[0].value= "Add a comment";
+	$('#exampleInputEmail1').select();
+		});
+
 	// Handler for .ready() called.
-	if (location.pathname.substring(location.pathname.lastIndexOf("/") + 1) === "guideline.html") {
-		var guideline = findGetParameter("id");
+	var guideline = findGetParameter("id");
+	if (location.pathname.substring(location.pathname.lastIndexOf("/") + 1) === "guideline.html" && guideline) {
+
 		var jqxhr = $.get("../../php/guideline.php", {
 				guideline : guideline,
 				time : "4:20"
 			}, function (data) {
 				/*var */
-				datum = JSON.parse(data);
+				datum = (typeof data !== "object")?JSON.parse(data):data;
 				$(".guideline-title").text(datum.TITLE);
 				$(".guideline-desc").text(datum.DESCRIPTION);
+				$(".upvotesCounter").text(datum.Upvotes);
+				$(".downvotesCounter").text(datum.Downvotes);
+				$(".commentsCounter").text(datum.Comments);
 				(datum.HRI) ? $(".guideline-feas").append("HRI, ") : 0;
 				(datum["MOTION-BASED"]) ? $(".guideline-feas").append("MOTION-BASED, ") : 0;
 				(datum.MSE) ? $(".guideline-feas").append("MSE, ") : 0;
@@ -39,5 +60,31 @@ $(document).ready(function () {
 				//	alert("finished");
 			});
 	}
+	
+	$('.commentBtn').click(function(){
+		        event.preventDefault();
+
+        // Get some values from elements on the page:
+        var $form = $(this);
+        var comment = $('.commentText').val();
+		var guideline = findGetParameter("id");
+      
+        // Send the data using post
+        var posting = $.post('../../php/comment.php', {
+            comment: comment,
+			guideline: guideline
+          
+        });
+
+        // Put the results in a div
+        posting.done(function (data, textStatus, XMLHttpRequest) {
+            if (data[0] === "ok") {
+            
+            } else { //erorr to handle
+
+
+            };
+        });
+		});
 
 });

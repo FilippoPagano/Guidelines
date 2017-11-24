@@ -3,8 +3,45 @@
 	include((dirname(__FILE__)) .'/dbc.php');
 	
 	
-	$query = "SELECT * FROM guideline WHERE id ='" .  $mysqli->real_escape_string($_GET['guideline']) . "';";
-//	var_dump($query);
+	$query = "SELECT guideline.*,  temp.Comments ,  temp2.Upvotes ,  temp3.Downvotes FROM guideline  " .
+	"LEFT JOIN  (  SELECT    guideline.id,    COUNT(guideline_comment.id) AS COMMENTS
+  FROM    guideline
+  LEFT JOIN   guideline_comment ON guideline_comment.guideline = guideline.id
+  GROUP BY
+    guideline.id
+) temp ON temp.id = guideline.id
+LEFT JOIN
+  (
+  SELECT
+    guideline.id,
+    COUNT(guideline_upvote.id) AS UPVOTES
+  FROM
+    guideline
+  LEFT JOIN
+    guideline_upvote ON guideline_upvote.guideline = guideline.id
+  GROUP BY
+    guideline.id
+) temp2 ON temp2.id = guideline.id
+LEFT JOIN
+  (
+  SELECT
+    guideline.id,
+    COUNT(guideline_downvote.id) AS DOWNVOTES
+  FROM
+    guideline
+  LEFT JOIN
+    guideline_downvote ON guideline_downvote.guideline = guideline.id
+  GROUP BY
+    guideline.id
+) temp3 ON temp3.id = guideline.id"
+	
+	
+	." WHERE guideline.id ='" .  $mysqli->real_escape_string($_GET['guideline']) . "';";
+	
+	
+	
+	
+	//var_dump($query);
 	
 	 if ($result = $mysqli->query($query)){  
 	// 	var_dump($result);

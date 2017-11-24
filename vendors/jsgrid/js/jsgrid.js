@@ -87,6 +87,7 @@
             if(this.editing) {
                 this.editItem($(args.event.target).closest("tr"));
             }
+			window.location.href = "guideline.html?id=" +(args.item.id);
         },
         rowDoubleClick: $.noop,
 
@@ -166,7 +167,7 @@
 
         onInit: $.noop,
         onRefreshing: $.noop,
-        onRefreshed: $.noop,
+        onRefreshed: function(args){$('.jsgrid-grid-body').find('.jsgrid-cell > input[type=checkbox]').each(function(i, el){$(el).attr('id','bodychk' + i +'th'); $(el).after("<label for='"+ 'bodychk' + i +'th' + "'></label>")});},
         onPageChanged: $.noop,
         onItemDeleting: $.noop,
         onItemDeleted: $.noop,

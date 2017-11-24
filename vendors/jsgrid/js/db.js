@@ -8,8 +8,13 @@
                     && (!filter.Description || guideline.Description === filter.Description)
                     && (!filter.References || guideline.References.indexOf(filter.References) > -1)
                     && (!filter.Category || guideline.Category === filter.Category)
-                    && (!filter.Category || guideline.SubCategory === filter.SubCategory)
-                    && (filter.HRI === undefined || guideline.HRI === filter.HRI);
+                    && (!filter.SubCategory || guideline.SubCategory === filter.SubCategory)
+                    && (filter.HRI === undefined || String(guideline.HRI) === String(filter.HRI))
+                    && (filter.WIVR === undefined || String(guideline.WIVR) === String(filter.WIVR))
+                    && (filter.MB === undefined || String(guideline.MB) === String(filter.MB))
+                    && (filter.MSE === undefined || String(guideline.MSE) === String(filter.MSE))
+                    && (filter.TANGIBLES === undefined || String(guideline.TANGIBLES) === String(filter.TANGIBLES))
+                    && (filter.TOUCH === undefined || String(guideline.TOUCH) === String(filter.TOUCH));
             });
         },
 
@@ -60,7 +65,7 @@
 		
     ];
 	
-	$.get("../../../../action_page.php", function (data) {
+	$.get("../../php/action_page.php", function (data) {
 		var list = JSON.parse(data);
 		for (el in list) {
 		/*
@@ -71,12 +76,21 @@
 			$(".guidelineCat:last").text(list[el]["CAT"]);
 			$(".guidelineSubCat:last").text(list[el]["SUBCAT"]); */
 			newGuideline ={}
+			newGuideline.id =list[el]["id"];
 			newGuideline.Name =list[el]["TITLE"];
 			newGuideline.Description =list[el]["DESCRIPTION"];
 			newGuideline.References =list[el]["REFERENCE"];
 			newGuideline.Category =parseInt(list[el]["CAT"].slice(3));
 			newGuideline.SubCategory =parseInt(list[el]["SUBCAT"].slice(3));
-			newGuideline.HRI =list[el]["HRI"];
+			newGuideline.HRI = (list[el]["HRI"]=="true");
+			newGuideline.WIVR =(list[el]["WIVR"]=="true");
+			newGuideline.MB =(list[el]["MOTION-BASED"]=="true");
+			newGuideline.MSE =(list[el]["MSE"]=="true");
+			newGuideline.TANGIBLES =(list[el]["TANGIBLES"]=="true");
+			newGuideline.TOUCH =(list[el]["TOUCH"]=="true");
+			newGuideline.Comments =list[el]["COMMENTS"];
+			newGuideline.Upvotes =list[el]["UPVOTES"];
+			newGuideline.Downvotes =list[el]["DOWNVOTES"];
 			db.guidelines.push(newGuideline);
 			
 		}

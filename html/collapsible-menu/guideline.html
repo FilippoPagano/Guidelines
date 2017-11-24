@@ -287,12 +287,12 @@
  
   </div>
               <h3 class="inline-block guideline-title">Guideline 1</h3>
-			    <a href="#!" class="deep-purple-text darken-4 text-accent-4 ">10 <i class="material-icons dp48 text-bottom">thumb_up</i></a> 
-              <a href="#!" class="deep-purple-text darken-4 text-accent-4">1 <i class="material-icons dp48 text-bottom">thumb_down</i></a> 
-              <a href="#!" class="deep-purple-text darken-4 text-accent-4">5 <i class="material-icons dp48 text-bottom">comment</i></a>
+			    <a href="#!" class="deep-purple-text darken-4 text-accent-4 "><div class="upvotesCounter inline-block"></div> <i class="material-icons dp48 text-bottom">thumb_up</i></a> 
+              <a href="#!" class="deep-purple-text darken-4 text-accent-4"><div class="downvotesCounter inline-block"></div> <i class="material-icons dp48 text-bottom">thumb_down</i></a> 
+              <a href="#!" class="deep-purple-text darken-4 text-accent-4"><div class="commentsCounter inline-block"></div> <i class="material-icons dp48 text-bottom">comment</i></a>
               <p class="guideline-desc">Guideline description which can get very lorem ipsum sic amet</p>		  
                     <a href="#features">Features</a>
-					<div id="features" class="guideline-feas">HRI, VR, Touch Based</div>
+					<div id="features" class="guideline-feas"></div>
                     <a class="active" href="#refs">References</a>
 					<div id="#refs" class="guideline-refs"></div>
                     <a href="#comments">Comments</a>
@@ -300,8 +300,8 @@
                 <div class="collection border-none guideline-comments">
                 </div>
 				<fieldset class="form-group">
-						<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Add a comment">
-						<button type="button" class="btn btn-sm btn-success">Post</button>
+						<input type="text" class="form-control commentText" id="exampleInputEmail1" placeholder="Add a comment">
+						<button type="button" class="btn btn-sm btn-success commentBtn">Post</button>
 					</fieldset>
 					
               </div></div>
@@ -500,4 +500,5 @@
    
   <script type="text/javascript" src="../../js/custom-script.js"></script></body>
   <script type="text/javascript" src="../../js/guideline.js"></script></body>
+  <script type="text/javascript" src="../../js/upvote.js"></script></body>
 </html>
