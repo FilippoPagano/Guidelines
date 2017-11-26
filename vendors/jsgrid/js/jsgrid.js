@@ -87,7 +87,7 @@
             if(this.editing) {
                 this.editItem($(args.event.target).closest("tr"));
             }
-			window.location.href = "guideline.html?id=" +(args.item.id);
+			//window.location.href = "guideline.html?id=" +(args.item.id);
         },
         rowDoubleClick: $.noop,
 

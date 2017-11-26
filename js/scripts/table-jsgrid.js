@@ -1,7 +1,7 @@
 /*
 * JSGrid  - Table JS Grid page
 */
-
+   selectedItems = [];
 $(function() {
 
   // Basic Data
@@ -17,7 +17,21 @@ $(function() {
     pageButtonCount: 5,
     deleteConfirm: "Do you really want to delete the guideline?",
     controller: db,
-    fields: [{
+    fields: [
+	  {
+                headerTemplate: function() {},
+                itemTemplate: function(_, item) {
+                    return $("<input>").attr("type", "checkbox")
+                            .prop("checked", $.inArray(item, selectedItems) > -1)
+                            .on("change", function (e) {
+							e.stopPropagation()
+                                $(this).is(":checked") ? selectItem(item) : unselectItem(item);
+                            }).on("click",function(e){e.stopPropagation();});
+                },
+                align: "center",
+                width: 50
+            },
+	{
         name: "Name",
         type: "text",
         width: 150
@@ -50,61 +64,94 @@ $(function() {
         name: "HRI",
         type: "checkbox",
         title: "HRI",
-        width: 30
+        width: 35
       },	
       {
         name: "WIVR",
         type: "checkbox",
-        title: "WIVR",
-        width: 30
+        title: "VR",
+        width: 35
       },	
       {
         name: "MB",
         type: "checkbox",
-        title: "MOTION-BASED",
-        width: 30
+        title: "MB",
+        width: 35
       },	
       {
         name: "MSE",
         type: "checkbox",
         title: "MSE",
-        width: 30
+        width: 35
       },	
       {
         name: "TANGIBLES",
         type: "checkbox",
-        title: "TANGIBLES",
-        width: 30
+        title: "T",
+        width: 35
       },	
       {
         name: "TOUCH",
         type: "checkbox",
-        title: "TOUCH",
-        width: 30
+        title: "TCH",
+        width: 35
       },
 	  {
         name: "Upvotes",
         type: "number",
-        title: "Upvotes",
-        width: 30
+        title: '<i class="material-icons dp48 text-bottom">thumb_up</i>',
+        width: 35
       },		  
 {
         name: "Downvotes",
         type: "number",
-        title: "Downvotes",
-        width: 30
+        title: '<i class="material-icons dp48 text-bottom">thumb_down</i>',
+        width: 35
       },		  
 	  {
         name: "Comments",
         type: "number",
-        title: "Comments",
-        width: 30
+        title: '<i class="material-icons dp48 text-bottom">comment</i>',
+        width: 35
       },		
       {
         type: "control"
       }
     ]
   });
+  
+
+ 
+    var selectItem = function(item) {
+        selectedItems.push(item);
+    };
+ 
+    var unselectItem = function(item) {
+        selectedItems = $.grep(selectedItems, function(i) {
+            return i !== item;
+        });
+    };
+ 
+    var deleteSelectedItems = function() {
+        if(!selectedItems.length || !confirm("Are you sure?"))
+            return;
+ 
+        deleteClientsFromDb(selectedItems);
+ 
+        var $grid = $("#jsGrid");
+        $grid.jsGrid("option", "pageIndex", 1);
+        $grid.jsGrid("loadData");
+ 
+        selectedItems = [];
+    };
+ 
+    var deleteClientsFromDb = function(deletingClients) {
+        db.clients = $.map(db.clients, function(client) {
+            return ($.inArray(client, deletingClients) > -1) ? null : client;
+        });
+    };
+ 
+
  
 
   // Sorting

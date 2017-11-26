@@ -17,7 +17,7 @@ $(document).ready(function () {
 		});
 
 	// Handler for .ready() called.
-	var guideline = findGetParameter("id");
+	var guideline = findGetParameter("id")?findGetParameter("id"):1;
 	if (location.pathname.substring(location.pathname.lastIndexOf("/") + 1) === "guideline.html" && guideline) {
 
 		var jqxhr = $.get("../../php/guideline.php", {

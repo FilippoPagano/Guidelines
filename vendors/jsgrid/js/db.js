@@ -55,13 +55,7 @@
         { Name: "Option 7", Id: 7 }
     ];
 	 db.guidelines = [
-		 {
-            "Name": "Guideline 1",
-            "Description": "Guideline description",
-            "Category": 6,
-            "References": "Ref 1",
-            "HRI": false
-        }
+		
 		
     ];
 	
