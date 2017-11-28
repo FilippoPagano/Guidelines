@@ -23,37 +23,86 @@ function findGetParameter(parameterName) {
 	});
 	return result;
 }
-
+function openInNewTab(url) {
+	var win = window.open(url, '_blank');
+	win.focus();
+}
 $('document').ready(function () {
 	$('.material-icons:contains("radio_button_checked")').click();
 	$.get("../../php/getNotifications.php", function (data) {
 		data = JSON.parse(data);
 
 		for (el in data) {
-			
 
 			$('.notification-badge').text(parseInt($('.notification-badge').text()) + 1);
 			$('.new.badge').each(function () {
 				$(this).text(parseInt($(this).text()) + 1)
 			});
 			if (data[el]['TITLE']) {
-				$('#notifications-dropdown').append('<li> <a href="#!" class="grey-text text-darken-2"> <span class="material-icons icon-bg-circle red small">stars</span> ' + data[el]['TITLE'] + '</a>        <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">3 days ago</time>	</li>');
+				var href = "post-guideline.html?id=" + data[el]['id'] + "&name=" + data[el]['TITLE'] + "&desc=" + data[el]['DESCRIPTION'] + "&cat=" + data[el]['CAT'] + "&subcat=" + data[el]['SUBCAT'] + "&ref=" + data[el]['REFERENCE'] + "&HRI=" + data[el]['HRI'] + "&T=" + data[el]['TANGIBLES'] + "&TB=" + data[el]['TOUCH'] + "&WIVR=" + data[el]['WIVR'] + "&MB=" + data[el]['MOTION-BASED'] + "&MSE=" + data[el]['MSE'];
+				$('#notifications-dropdown').append('<li> <a href="' + href + '" class="grey-text text-darken-2"> <span class="material-icons icon-bg-circle red small">stars</span> ' + data[el]['TITLE'] + '</a>        <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">3 days ago</time>	</li>');
 			} else {
-				$('#notifications-dropdown').append('<li> <a href="#!" class="grey-text text-darken-2"> <span class="material-icons icon-bg-circle teal small">message</span> ' + data[el]['guidelineShownName'] + '</a>        <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">3 days ago</time>	</li>')
+				var href = "edit-guideline.html?id=" + data[el]['guideline'] + "&name=" + data[el]['guidelineShownName'] + "&msg=" + data[el]['editMessage']
+					$('#notifications-dropdown').append('<li> <a href="' + href + '" class="grey-text text-darken-2"> <span class="material-icons icon-bg-circle teal small">message</span> ' + data[el]['guidelineShownName'] + '</a>        <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">3 days ago</time>	</li>')
 			}
 		}
 
+		//NB approfittiamo del fatto di sapere che siamo admin/loggati
+		//TODO cappella: adesso bisogna mettere la roba per i loggati a parte perchè qui va bene solo per gli admin
+		$("#profile-dropdown > li:contains('Login')").hide();
+		$("#profile-dropdown > li:contains('Register')").hide();
+		$("#profile-dropdown > li:contains('Logout')").click(function(){localStorage.clear();});
+		$("#profile-dropdown > li:contains('Logout')").show();
+		$("#goToGuideline").show();
+		$(".material-icons:contains('mode_edit')").unbind().click(function () {
+			window.location.href = "post-guideline.html?id=" + datum['id'] + "&name=" + datum['TITLE'] + "&public=0" + "&desc=" + datum['DESCRIPTION'] + "&cat=" + datum['CAT'] + "&subcat=" + datum['SUBCAT'] + "&ref=" + datum['REFERENCE'] + "&HRI=" + datum['HRI'] + "&T=" + datum['TANGIBLES'] + "&TB=" + datum['TOUCH'] + "&WIVR=" + datum['WIVR'] + "&MB=" + datum['MOTION-BASED'] + "&MSE=" + datum['MSE'];
 
-			$("#profile-dropdown > li:contains('Login')").hide();
-			$("#profile-dropdown > li:contains('Register')").hide();
-			$("#profile-dropdown > li:contains('Logout')").show();
-
-
-	}).fail(function (){
-					$("#profile-dropdown > li:contains('Login')").show();
-			$("#profile-dropdown > li:contains('Register')").show();
-			$("#profile-dropdown > li:contains('Logout')").hide();
-			$("li:contains('NOTIFICATIONS')").hide();
 		});
+		$("#guideline_name").parent().removeClass("s12").addClass("s9");
+		$("#publicchk").parent().show();
+		$("#discard-guidelineBtn")
+		.click(function () {
+			var theid = findGetParameter("id");
+			var request = $.ajax({
+					url : "../../php/deleteGuideline.php",
+					method : "POST",
+					data : {
+						guideline : theid
+					},
+					dataType : "html"
+				});
 
+			request.done(function (msg) {
+				Materialize.toast("Guideline moved to discarded", 10000);
+			})
+
+			/*$.post("../../php/deleteGuideline.php", {
+			guideline : theid
+			})
+			.done(function (data) {
+			Materialize.toast("Guideline moved to discarded", 10000);
+			});*/
+		})
+		.show();
+
+	}).fail(function () {
+		$("#profile-dropdown > li:contains('Login')").show();
+		$("#profile-dropdown > li:contains('Register')").show();
+		$("#profile-dropdown > li:contains('Logout')").hide();
+		$("li:contains('NOTIFICATIONS')").hide();
+		$("#addToFavaourites").hide();
+		$("#profile-dropdown > li:contains('Profile')").hide();
+		$(".jsgrid-delete-button").hide();
+
+	});
+	if (location.pathname.substring(location.pathname.lastIndexOf("/") + 1) == "guidelines.html"){
+	var e = $.Event( "keypress", { which: 13 } );
+	setTimeout(function() {
+    $($("#jsGrid-basic").data("JSGrid").fields[1].filterControl[0]).trigger(e);
+}, 500);
+	}
+	//$($("#jsGrid-basic").data("JSGrid").fields[1].filterControl[0]).delay( 500 ).trigger(e);
+	/* $('.jsgrid-row').add(".jsgrid-alt-row").find("td:nth-child(2)").click(function(){
+	window.location.href = "guideline.html?id=" +(args.item.id);
+	})*/
 });

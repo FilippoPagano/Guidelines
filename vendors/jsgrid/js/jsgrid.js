@@ -86,8 +86,9 @@
         rowClick: function(args) {
             if(this.editing) {
                 this.editItem($(args.event.target).closest("tr"));
+			//	alert();
             }
-			//window.location.href = "guideline.html?id=" +(args.item.id);
+			if ($(args.event.target).is('.jsgrid-cell:nth-child(2)')) window.location.href = "guideline.html?id=" +(args.item.id);
         },
         rowDoubleClick: $.noop,
 
@@ -1211,6 +1212,9 @@
         },
 
         editItem: function(item) {
+		//	alert();
+		var href="post-guideline.html?id=" + item['id'] + "&name="+item['Name']+"&public=1"+"&desc="+item['Description']+"&cat="+item['Category']+"&subcat="+item['SubCategory']+"&ref="+item['References']+"&HRI="+item['HRI']+"&T="+item['TANGIBLES']+"&TB="+item['TOUCH']+"&WIVR="+item['WIVR']+"&MB="+item['MB']+"&MSE="+item['MSE'];
+			window.location.href= href;
             var $row = this.rowByItem(item);
             if($row.length) {
                 this._editRow($row);

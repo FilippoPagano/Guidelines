@@ -39,7 +39,7 @@ LEFT JOIN
   GROUP BY
     guideline.id
 ) temp3 ON temp3.id = guideline.id
-WHERE 1" ;
+WHERE guideline.public = 1" ;
 	// var_dump($query);
 	if ($result = $mysqli->query($query)){  
         $rows = array();

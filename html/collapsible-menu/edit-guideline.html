@@ -294,21 +294,23 @@
                  <form id="edit-message-form"class="col s12 white" action="../../php/submitEditMessage.php" method="post">
             <div class="row">
               <div class="input-field col s6">
-              <input placeholder="Placeholder" id="guideline_name" name="guideline_name" type="text" class="validate" value="Guideline 1"/> 
+              <input placeholder="Placeholder" id="guideline_name" name="guideline_name" type="text" class="validate" value=""/> 
               <label for="guideline_name">Guideline</label></div>
 			               <div class="input-field col s6">
-              <input placeholder="Placeholder" id="guidelineID" name="guideline_id" type="text" class="validate" value="1"/> 
+              <input placeholder="Placeholder" id="guidelineID" name="guideline_id" type="text" class="validate" value=""/> 
               <label for="first_name">Guideline ID</label></div>
             </div>
 			 <div class="row">
         <div class="input-field col s12">
-          <textarea id="textarea1" name="edit_message" class="materialize-textarea">Please remove this guideline. &#10; - Ref 1 &#10; - Ref 2 </textarea>
+          <textarea id="textarea1" name="edit_message" class="materialize-textarea"></textarea>
           <label for="textarea1">Edit Message:</label>
         </div>
       </div>
 			<div class="row">
 			   <button id="post-editGuidelineBtn" class="btn waves-effect waves-light" type="submit" name="action">Submit
     <i class="material-icons right">send</i>
+			   </button>			   <button id="goToGuideline" class="btn waves-effect waves-light hidden" type="button" >Go to guideline
+    <i class="material-icons right">link</i>
   </button>
 			</div>
           </form>

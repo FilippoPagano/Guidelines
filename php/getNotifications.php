@@ -1,6 +1,7 @@
 <?php
 	include((dirname(__FILE__)) .'/ensureLogin.php');
 	require((dirname(__FILE__)) .'/dbc.php');
+	include((dirname(__FILE__)) .'/ensureAdmin.php');
 	
 	$query = "SELECT * FROM `guideline` WHERE `public` =0";
 	

@@ -22,11 +22,12 @@ function sendUpvote(){
 
         // Put the results in a div
         posting.done(function (data, textStatus, XMLHttpRequest) {
-            if (data[0] === "ok") {
-            
+            if (data === "ok") {
+				//$(".upvotesCounter").text(parseInt($(".upvotesCounter").text())+1);
+				Materialize.toast("Vote received", 1000);
             } else { //erorr to handle
 
-
+Materialize.toast("Error", 10000);
             };
         });
 	
@@ -45,9 +46,11 @@ function sendDownvote(){
 
         // Put the results in a div
         posting.done(function (data, textStatus, XMLHttpRequest) {
-            if (data[0] === "ok") {
-            
+            if (data === "ok") {
+			//	$(".downvotesCounter").text(parseInt($(".downvotesCounter").text())+1);
+				Materialize.toast("Vote received", 1000);
             } else { //erorr to handle
+Materialize.toast("Error", 10000);
 
 
             };

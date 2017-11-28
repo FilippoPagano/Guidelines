@@ -1,6 +1,6 @@
 $(document).ready(function () {
 	$(".material-icons:contains('mode_edit')").click(function(){
-		window.open("edit-guideline.html?id="+ findGetParameter("id"));
+		window.open("edit-guideline.html?id=".concat((findGetParameter("id"))?findGetParameter("id"):1) + "&name=" + findGetParameter("name"));
 		});
 	$.ajaxSetup({
         type: "POST",
@@ -78,8 +78,8 @@ $(document).ready(function () {
 
         // Put the results in a div
         posting.done(function (data, textStatus, XMLHttpRequest) {
-            if (data[0] === "ok") {
-            
+            if (data === "ok") {
+            			Materialize.toast("Comment received", 1000);
             } else { //erorr to handle
 
 

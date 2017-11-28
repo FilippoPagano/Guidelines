@@ -12,8 +12,8 @@
 	}
 	
 	function saveToList($list,$selectedItems, $mysqli){
-	var_dump($list);
-	var_dump($selectedItems);
+	//var_dump($list);
+	//var_dump($selectedItems);
 	foreach ($selectedItems as $item){
 
 				

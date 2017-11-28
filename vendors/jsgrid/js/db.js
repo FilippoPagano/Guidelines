@@ -25,8 +25,18 @@
         updateItem: function(updatingGuideline) { },
 
         deleteItem: function(deletingGuideline) {
+		//alert(deletingGuideline);
             var guidelineIndex = $.inArray(deletingGuideline, this.guidelines);
             this.guidelines.splice(guidelineIndex, 1);
+			//$();//TODO delete
+			$.ajax({
+    url: '../../php/deleteGuideline.php',
+    type: 'POST',
+	data: {guideline: deletingGuideline.id},
+    success: function(result) {
+        // Do something with the result
+    }
+});
         }
 
     };

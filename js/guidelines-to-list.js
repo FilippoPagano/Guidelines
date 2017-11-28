@@ -15,15 +15,16 @@ $(document).ready(function () {
 		var posting = $.post('../../php/addElementsToList.php', {
 				selectedItems : selectedItems,
 				list : list
-			});
+		},function(){},'text');
 
 		// Put the results in a div
 		posting.done(function (data, textStatus, XMLHttpRequest) {
-			if (data[0] === "ok") {}
-			else {};
+			if (data.endsWith( '"ok"')) {			Materialize.toast("List updated", 1000);}
+			else {	};
 		});
 		posting.fail(function (xhr, status, error) {
 			if (xhr.readyState == 0) {}
+					Materialize.toast("Error", 1000);
 		})
 	});
 	$('select').on('contentChanged', function () {

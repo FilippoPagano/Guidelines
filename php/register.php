@@ -8,9 +8,12 @@ if (isset($_POST["email"]) && isset($_POST["password"])&& isset($_POST["name"]))
     $email = $mysqli->real_escape_string($_POST["email"]);
     $password =$mysqli->real_escape_string($_POST["password"]);
     $name =$mysqli->real_escape_string($_POST["name"]);
+    $isAdmin =$mysqli->real_escape_string($_POST["isAdmin"]);
     $query = "SELECT email FROM user WHERE email='" .$email."';";
+	
     if (($result = $mysqli->query($query)) and ($result->num_rows == 0)){
-        $query ="INSERT INTO user(email, password, name) VALUES('" .$email. "','".$password."','".$name."');";
+        $query ="INSERT INTO user(email, password, name, isAdmin) VALUES('" .$email. "','".$password."','".$name."','".$isAdmin."');";
+	//	var_dump($query);
         if ($result = $mysqli->query($query)){
             session_start();
             $_SESSION['email']= $email;

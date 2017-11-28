@@ -18,12 +18,14 @@ $(document).ready(function () {
         var email = $('#email').val();
         var password = $('#password').val();
         var name = $('#username').val();
+        var isAdmin = $('#adminchk').prop("checked")?1:0;
 
         // Send the data using post
         var posting = $.post('../../php/register.php', {
             email: email,
             password: password,
-            name: name
+            name: name,
+			isAdmin: isAdmin
         });
 
         // Put the results in a div

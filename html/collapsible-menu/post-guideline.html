@@ -283,8 +283,11 @@
                   <form class="col s12 white" action="../../php/submit.php" id="rendered-form" method="post">
                     <div class="row">
                       <div class="input-field col s12">
-                      <input placeholder="Placeholder" id="first_name" name="title" type="text" class="validate" /> 
-                      <label for="first_name">Guideline name</label></div>
+                      <input placeholder="Placeholder" id="guideline_name" name="title" type="text" class="validate" /> 
+                      <label for="guideline_name">Guideline name</label></div>
+					  <div class="col s3 hidden inline">
+					   <input type="checkbox" id="publicchk" value="public" name="public"/> 
+					  <label for="publicchk">Public</label></div>
                     </div>
                     <div class="row">
                       <div class="input-field col s6">
@@ -297,16 +300,16 @@
                       <div class="input-field col s6">
                       <select name="subcat">
                         <option value="" disabled="disabled" selected="selected">Choose your option</option>
-                        <option value="opt4">Option 1</option>
-                        <option value="opt4">Option 2</option>
-                        <option value="opt5">Option 3</option>
+                        <option value="opt3">Option 3</option>
+                        <option value="opt4">Option 4</option>
+                        <option value="opt5">Option 5</option>
                       </select> 
                       <label  for="subcat">Select SubCategory</label></div>
                     </div>
                     <div class="row">
                       <div class="input-field col s12">
-                      <label for="first_name">Guideline description</label> 
-                      <input placeholder="Placeholder" id="first_name" type="text" class="validate" name="desc" /></div>
+                      <label for="guideline_desc">Guideline description</label> 
+                      <input placeholder="Placeholder" id="guideline_desc" type="text" class="validate" name="desc" /></div>
                     </div>
 					
 					
@@ -343,8 +346,12 @@
                        - Ref 2</textarea> 
                       <label for="textarea1">References</label></div>
                     </div>
-                    <button id="post-guidelineBtn" class="btn waves-effect waves-light" type="submit" name="action">Submit 
+					            <button id="discard-guidelineBtn" class="hidden btn red waves-effect waves-light" type="button" name="discard">Discard 
+                    <i class="material-icons left">remove</i></button>
+                    <button id="post-guidelineBtn" class="btn waves-effect waves-light" type="submit" name="action">Send 
                     <i class="material-icons right">send</i></button>
+					
+					
                   </form>
                 </div>
               </div>
