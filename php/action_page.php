@@ -1,4 +1,15 @@
 <?php
+function utf8ize($d) {
+    if (is_array($d)) {
+        foreach ($d as $k => $v) {
+            $d[$k] = utf8ize($v);
+        }
+    } else if (is_string ($d)) {
+        return utf8_encode($d);
+    }
+    return $d;
+}
+
 	include_once("connectdb.php");
 	function validate_input() {
     /*TODO*/
@@ -43,16 +54,17 @@ WHERE guideline.public = 1" ;
 	// var_dump($query);
 	if ($result = $mysqli->query($query)){  
         $rows = array();
+	//var_dump($result);
         while($row = $result->fetch_assoc()) {
             array_push($rows, $row);
-
+//var_dump($row);
         }
 
         $result->close();
     }
     $mysqli-> close();
-	//var_dump($rows);
-    print(json_encode($rows)); 
+//	var_dump($rows);
+    print(json_encode(utf8ize($rows))); 
 	
 	
 ?>

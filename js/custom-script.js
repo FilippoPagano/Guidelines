@@ -42,7 +42,7 @@ $('document').ready(function () {
 				var href = "post-guideline.html?id=" + data[el]['id'] + "&name=" + data[el]['TITLE'] + "&desc=" + data[el]['DESCRIPTION'] + "&cat=" + data[el]['CAT'] + "&subcat=" + data[el]['SUBCAT'] + "&ref=" + data[el]['REFERENCE'] + "&HRI=" + data[el]['HRI'] + "&T=" + data[el]['TANGIBLES'] + "&TB=" + data[el]['TOUCH'] + "&WIVR=" + data[el]['WIVR'] + "&MB=" + data[el]['MOTION-BASED'] + "&MSE=" + data[el]['MSE'];
 				$('#notifications-dropdown').append('<li> <a href="' + href + '" class="grey-text text-darken-2"> <span class="material-icons icon-bg-circle red small">stars</span> ' + data[el]['TITLE'] + '</a>        <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">3 days ago</time>	</li>');
 			} else {
-				var href = "edit-guideline.html?id=" + data[el]['guideline'] + "&name=" + data[el]['guidelineShownName'] + "&msg=" + data[el]['editMessage']
+				var href = "edit-guideline.html?msgID=" + data[el]['id']  + "&id=" + data[el]['guideline'] + "&name=" + data[el]['guidelineShownName'] + "&msg=" + data[el]['editMessage']
 					$('#notifications-dropdown').append('<li> <a href="' + href + '" class="grey-text text-darken-2"> <span class="material-icons icon-bg-circle teal small">message</span> ' + data[el]['guidelineShownName'] + '</a>        <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">3 days ago</time>	</li>')
 			}
 		}
@@ -63,8 +63,10 @@ $('document').ready(function () {
 		$("#discard-guidelineBtn")
 		.click(function () {
 			var theid = findGetParameter("id");
+			var url = "../../php/deleteGuideline.php";
+	if (location.pathname.substring(location.pathname.lastIndexOf("/") + 1) == "edit-guideline.html"){ url="../../php/deleteMessage.php"; theid =findGetParameter("msgID"); }
 			var request = $.ajax({
-					url : "../../php/deleteGuideline.php",
+					url : url,
 					method : "POST",
 					data : {
 						guideline : theid
